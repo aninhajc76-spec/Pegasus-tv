@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Área do Cliente - Pegasus TV</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0b0b0b;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #111;
+      padding: 22px;
+      text-align: center;
+      border-bottom: 1px solid #292929;
+    }
+
+    header h1 {
+      font-size: 28px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+      margin: auto;
+      padding: 25px 18px;
+    }
+
+    .boas-vindas {
+      text-align: center;
+      margin: 20px 0 30px;
+    }
+
+    .boas-vindas h2 {
+      margin-bottom: 10px;
+    }
+
+    .boas-vindas p {
+      color: #aaa;
+    }
+
+    .card {
+      background: #151515;
+      border: 1px solid #292929;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      margin-bottom: 15px;
+    }
+
+    .status {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .ativo {
+      color: #55ff88;
+      font-weight: bold;
+    }
+
+    .tempo {
+      font-size: 35px;
+      font-weight: bold;
+      text-align: center;
+      margin: 25px 0;
+    }
+
+    .info {
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 9px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #fff;
+      color: #000;
+    }
+
+    .secundario {
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
+    }
+
+    #carregando {
+      text-align: center;
+      padding: 40px;
+      color: #aaa;
+    }
+
+    #conteudo {
+      display: none;
+    }
+
+    #erro {
+      display: none;
+      text-align: center;
+      padding: 30px;
+      color: #ff7777;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>PEGASUS TV</h1>
+</header>
+
+<div class="container">
+
+  <div id="carregando">
+    Carregando sua área do cliente...
+  </div>
+
+  <div id="erro">
+    Não foi possível encontrar seu cadastro.
+  </div>
+
+  <div id="conteudo">
+
+    <div class="boas-vindas">
+      <h2>Olá, <span id="nomeCliente"></span>!</h2>
+
+      <p>
+        Bem-vindo à sua área do cliente.
+      </p>
+    </div>
+
+    <div class="card">
+
+      <h3>🎁 Seu teste gratuito</h3>
+
+      <div class="status">
+        Status:
+        <span class="ativo">
+          TESTE ATIVO
+        </span>
+      </div>
+
+      <div
+        id="tempo"
+        class="tempo"
+      >
+        04:00:00
+      </div>
+
+      <div class="info">
+        Seu teste gratuito possui duração de
+        4 horas.
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <h3>💳 Quer continuar usando?</h3>
+
+      <div class="info">
+        Assine o Pegasus TV por apenas
+        <strong>R$ 24,99 por mês.</strong>
+      </div>
+
+      <button onclick="irParaPlano()">
+        ASSINAR POR R$ 24,99
+      </button>
+
+    </div>
+
+    <div class="card">
+
+      <h3>🎁 Indique um amigo</h3>
+
+      <div class="info">
+        Convide seus amigos para conhecer
+        o Pegasus TV.
+      </div>
+
+      <button
+        class="secundario"
+        onclick="irParaIndicacao()"
+      >
+        INDICAR AMIGO
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+
+  const telefone =
+    localStorage.getItem("pegasusTelefone");
+
+
+  async function carregarCliente() {
+
+    if (!telefone) {
+
+      document.getElementById("carregando").style.display =
+        "none";
+
+      document.getElementById("erro").style.display =
+        "block";
+
+      document.getElementById("erro").innerText =
+        "Não encontramos seu acesso. Volte ao início e faça o teste novamente.";
+
+      return;
+    }
+
+
+    try {
+
+      const { data: cliente, error } =
+        await supabaseClient
+          .from("clientes")
+          .select("*")
+          .eq("telefone", telefone)
+          .order("created_at", {
+            ascending: false
+          })
+          .limit(1)
+          .single();
+
+
+      if (error || !cliente) {
+        throw error;
+      }
+
+
+      document.getElementById("nomeCliente").innerText =
+        cliente.nome;
+
+
+      const { data: testes } =
+        await supabaseClient
+          .from("testes")
+          .select("*")
+          .eq("cliente_id", cliente.id)
+          .order("data_inicio", {
+            ascending: false
+          })
+          .limit(1);
+
+
+      if (
+        !testes ||
+        testes.length === 0
+      ) {
+
+        throw new Error(
+          "Teste não encontrado."
+        );
+
+      }
+
+
+      const teste = testes[0];
+
+      iniciarContador(
+        teste.data_fim
+      );
+
+
+      document.getElementById("carregando").style.display =
+        "none";
+
+      document.getElementById("conteudo").style.display =
+        "block";
+
+
+    } catch (erro) {
+
+      console.error(erro);
+
+      document.getElementById("carregando").style.display =
+        "none";
+
+      document.getElementById("erro").style.display =
+        "block";
+
+    }
+
+  }
+
+
+  function iniciarContador(dataFim) {
+
+    const fim =
+      new Date(dataFim).getTime();
+
+
+    function atualizar() {
+
+      const agora =
+        new Date().getTime();
+
+      const restante =
+        fim - agora;
+
+
+      if (restante <= 0) {
+
+        document.getElementById("tempo").innerText =
+          "00:00:00";
+
+        return;
+      }
+
+
+      const horas =
+        Math.floor(
+          restante / (1000 * 60 * 60)
+        );
+
+      const minutos =
+        Math.floor(
+          (restante % (1000 * 60 * 60)) /
+          (1000 * 60)
+        );
+
+      const segundos =
+        Math.floor(
+          (restante % (1000 * 60)) /
+          1000
+        );
+
+
+      document.getElementById("tempo").innerText =
+        String(horas).padStart(2, "0") +
+        ":" +
+        String(minutos).padStart(2, "0") +
+        ":" +
+        String(segundos).padStart(2, "0");
+
+    }
+
+
+    atualizar();
+
+    setInterval(
+      atualizar,
+      1000
+    );
+
+  }
+
+
+  function irParaPlano() {
+
+    window.location.href =
+      "index.html";
+
+  }
+
+
+  function irParaIndicacao() {
+
+    window.location.href =
+      "index.html";
+
+  }
+
+
+  carregarCliente();
+
+</script>
+
+</body>
+</html>
