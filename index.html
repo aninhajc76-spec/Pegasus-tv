@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pegasus TV</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #222;
+    }
+
+    header h1 {
+      font-size: 28px;
+    }
+
+    main {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .card {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #bbb;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #fff;
+      color: #000;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .price {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    footer {
+      text-align: center;
+      color: #666;
+      padding: 30px 20px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>PEGASUS TV</h1>
+  </header>
+
+  <main>
+
+    <section class="card">
+      <h2>Teste grátis</h2>
+
+      <p>
+        Experimente o Pegasus TV gratuitamente.
+        Seu teste tem duração de 4 horas.
+      </p>
+
+      <button onclick="iniciarTeste()">
+        COMEÇAR TESTE
+      </button>
+    </section>
+
+    <section class="card">
+      <h2>Assinatura mensal</h2>
+
+      <div class="price">
+        R$ 24,99
+      </div>
+
+      <p>
+        Tenha acesso ao Pegasus TV através da assinatura mensal.
+      </p>
+
+      <button onclick="assinar()">
+        ASSINAR AGORA
+      </button>
+    </section>
+
+    <section class="card">
+      <h2>Indique e ganhe</h2>
+
+      <p>
+        Indique novos clientes e acompanhe suas indicações
+        pelo sistema.
+      </p>
+
+      <button onclick="indicacao()">
+        FAZER INDICAÇÃO
+      </button>
+    </section>
+
+  </main>
+
+  <footer>
+    Pegasus TV © 2026
+  </footer>
+
+  <script>
+    function iniciarTeste() {
+      alert("O sistema de teste de 4 horas será configurado na próxima etapa.");
+    }
+
+    function assinar() {
+      alert("O sistema de assinatura será configurado na próxima etapa.");
+    }
+
+    function indicacao() {
+      alert("O sistema de indicações será configurado na próxima etapa.");
+    }
+  </script>
+
+</body>
+  </html>
