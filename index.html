@@ -11,466 +11,795 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: Arial, sans-serif;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
+      background: #0b0b0b;
+      color: #ffffff;
       min-height: 100vh;
     }
 
     header {
-      text-align: center;
       padding: 25px 20px;
-      border-bottom: 1px solid #222;
+      text-align: center;
+      background: #111111;
+      border-bottom: 1px solid #222222;
     }
 
     header h1 {
-      font-size: 30px;
-      letter-spacing: 2px;
+      font-size: 32px;
+      margin-bottom: 8px;
     }
 
-    main {
+    header p {
+      color: #bbbbbb;
+      font-size: 16px;
+    }
+
+    .container {
       width: 100%;
-      max-width: 520px;
+      max-width: 1000px;
       margin: auto;
-      padding: 25px 18px;
+      padding: 30px 20px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 35px 10px;
+    }
+
+    .hero h2 {
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      color: #cccccc;
+      font-size: 17px;
+      line-height: 1.5;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
     }
 
     .card {
-      background: #111;
+      background: #151515;
       border: 1px solid #292929;
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 18px;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
     }
 
-    h2 {
-      margin-bottom: 10px;
+    .card h3 {
+      font-size: 21px;
+      margin-bottom: 12px;
     }
 
-    p {
-      color: #bbb;
+    .card p {
+      color: #bbbbbb;
       line-height: 1.5;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
-    .price {
-      font-size: 32px;
+    .preco {
+      font-size: 27px;
       font-weight: bold;
-      margin: 15px 0;
+      margin-bottom: 20px;
     }
 
     button {
       width: 100%;
-      padding: 15px;
-      border: 0;
+      border: none;
       border-radius: 10px;
-      background: #fff;
-      color: #000;
+      padding: 14px;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
+      background: #ffffff;
+      color: #000000;
     }
 
-    button:active {
-      transform: scale(.98);
+    button:hover {
+      opacity: 0.9;
     }
 
     .modal {
       display: none;
       position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.8);
-      align-items: center;
-      justify-content: center;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
       padding: 20px;
+      overflow-y: auto;
     }
 
-    .modal-box {
+    .modal-content {
       width: 100%;
-      max-width: 430px;
-      background: #111;
-      border: 1px solid #333;
-      border-radius: 16px;
+      max-width: 450px;
+      margin: 50px auto;
+      background: #151515;
+      border: 1px solid #333333;
+      border-radius: 15px;
       padding: 25px;
+      position: relative;
     }
 
-    .modal-box input {
-      width: 100%;
-      padding: 14px;
-      margin: 8px 0;
-      border-radius: 8px;
-      border: 1px solid #444;
-      background: #050505;
-      color: #fff;
-      font-size: 16px;
+    .modal-content h2 {
+      margin-bottom: 20px;
     }
 
-    .close {
-      background: #222;
-      color: #fff;
-      margin-top: 10px;
+    .fechar {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      width: auto;
+      background: transparent;
+      color: #ffffff;
+      font-size: 28px;
+      padding: 0;
     }
 
-    #resultado {
+    label {
+      display: block;
       margin-top: 15px;
-      color: #bbb;
+      margin-bottom: 7px;
+      color: #dddddd;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #444444;
+      background: #0c0c0c;
+      color: #ffffff;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .form-button {
+      margin-top: 20px;
+    }
+
+    .resultado {
+      margin-top: 15px;
+      text-align: center;
+      color: #ffffff;
       line-height: 1.5;
     }
 
-    footer {
-      text-align: center;
-      color: #666;
-      padding: 25px;
+    .aviso {
+      margin-top: 15px;
+      color: #999999;
       font-size: 13px;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 25px;
+      text-align: center;
+      color: #888888;
+      background: #111111;
+      border-top: 1px solid #222222;
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>PEGASUS TV</h1>
-</header>
+  <header>
+    <h1>PEGASUS TV</h1>
+    <p>Entretenimento na palma da sua mão</p>
+  </header>
 
-<main>
+  <main class="container">
 
-  <section class="card">
-    <h2>Teste grátis</h2>
+    <section class="hero">
+      <h2>Escolha a melhor opção para você</h2>
+      <p>
+        Experimente gratuitamente, assine seu plano ou indique
+        seus amigos e aproveite as vantagens do Pegasus TV.
+      </p>
+    </section>
 
-    <p>
-      Experimente o Pegasus TV gratuitamente.
-      O teste tem duração de 4 horas.
-    </p>
+    <section class="cards">
 
-    <button onclick="abrirTeste()">
-      COMEÇAR TESTE
-    </button>
-  </section>
+      <!-- TESTE GRÁTIS -->
+      <div class="card">
+        <h3>Teste grátis</h3>
 
-  <section class="card">
-    <h2>Assinatura mensal</h2>
+        <p>
+          Experimente o Pegasus TV gratuitamente
+          por 4 horas.
+        </p>
 
-    <div class="price">
-      R$ 24,99
+        <button onclick="abrirModal('modalTeste')">
+          COMEÇAR TESTE GRÁTIS
+        </button>
+      </div>
+
+      <!-- PLANO -->
+      <div class="card">
+        <h3>Plano mensal</h3>
+
+        <div class="preco">
+          R$ 24,99
+        </div>
+
+        <p>
+          Assinatura mensal do Pegasus TV.
+        </p>
+
+        <button onclick="abrirModal('modalPlano')">
+          ASSINAR AGORA
+        </button>
+      </div>
+
+      <!-- INDICAÇÃO -->
+      <div class="card">
+        <h3>Indique e ganhe</h3>
+
+        <p>
+          Indique amigos para o Pegasus TV
+          e participe do programa de indicações.
+        </p>
+
+        <button onclick="abrirModal('modalIndicacao')">
+          INDICAR AMIGO
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================= -->
+  <!-- MODAL TESTE -->
+  <!-- ========================= -->
+
+  <div id="modalTeste" class="modal">
+
+    <div class="modal-content">
+
+      <button class="fechar" onclick="fecharModal('modalTeste')">
+        ×
+      </button>
+
+      <h2>Teste grátis por 4 horas</h2>
+
+      <label for="testeNome">
+        Seu nome
+      </label>
+
+      <input
+        type="text"
+        id="testeNome"
+        placeholder="Digite seu nome"
+      >
+
+      <label for="testeTelefone">
+        WhatsApp
+      </label>
+
+      <input
+        type="tel"
+        id="testeTelefone"
+        placeholder="Ex.: 84999999999"
+      >
+
+      <button
+        class="form-button"
+        onclick="cadastrarTeste()"
+      >
+        INICIAR TESTE
+      </button>
+
+      <div
+        id="resultado"
+        class="resultado"
+      ></div>
+
+      <div class="aviso">
+        O teste gratuito possui duração de 4 horas.
+      </div>
+
     </div>
 
-    <p>
-      Assine o Pegasus TV e tenha acesso ao serviço.
-    </p>
+  </div>
 
-    <button onclick="abrirAssinatura()">
-      ASSINAR AGORA
-    </button>
-  </section>
+  <!-- ========================= -->
+  <!-- MODAL PLANO -->
+  <!-- ========================= -->
 
-  <section class="card">
-    <h2>Indique e ganhe</h2>
+  <div id="modalPlano" class="modal">
 
-    <p>
-      Indique novos clientes e acompanhe suas indicações.
-    </p>
+    <div class="modal-content">
 
-    <button onclick="abrirIndicacao()">
-      FAZER INDICAÇÃO
-    </button>
-  </section>
+      <button class="fechar" onclick="fecharModal('modalPlano')">
+        ×
+      </button>
 
-</main>
+      <h2>Assinatura mensal</h2>
 
-<footer>
-  Pegasus TV © 2026
-</footer>
+      <p style="color:#bbbbbb; margin-bottom:20px;">
+        Plano mensal Pegasus TV:
+      </p>
 
+      <div class="preco">
+        R$ 24,99
+      </div>
 
-<!-- MODAL TESTE -->
+      <label for="planoNome">
+        Seu nome
+      </label>
 
-<div class="modal" id="modalTeste">
+      <input
+        type="text"
+        id="planoNome"
+        placeholder="Digite seu nome"
+      >
 
-  <div class="modal-box">
+      <label for="planoTelefone">
+        WhatsApp
+      </label>
 
-    <h2>Começar teste</h2>
+      <input
+        type="tel"
+        id="planoTelefone"
+        placeholder="Ex.: 84999999999"
+      >
 
-    <p>
-      Preencha seus dados para iniciar o teste gratuito de 4 horas.
-    </p>
+      <button
+        class="form-button"
+        onclick="solicitarPlano()"
+      >
+        CONTINUAR
+      </button>
 
-    <input
-      id="testeNome"
-      type="text"
-      placeholder="Seu nome"
-    >
+      <div
+        id="resultadoPlano"
+        class="resultado"
+      ></div>
 
-    <input
-      id="testeTelefone"
-      type="tel"
-      placeholder="Seu telefone"
-    >
-
-    <button onclick="cadastrarTeste()">
-      INICIAR TESTE
-    </button>
-
-    <button class="close" onclick="fecharModais()">
-      CANCELAR
-    </button>
-
-    <div id="resultado"></div>
+    </div>
 
   </div>
 
-</div>
+  <!-- ========================= -->
+  <!-- MODAL INDICAÇÃO -->
+  <!-- ========================= -->
 
+  <div id="modalIndicacao" class="modal">
 
-<!-- MODAL ASSINATURA -->
+    <div class="modal-content">
 
-<div class="modal" id="modalAssinatura">
+      <button
+        class="fechar"
+        onclick="fecharModal('modalIndicacao')"
+      >
+        ×
+      </button>
 
-  <div class="modal-box">
+      <h2>Indique um amigo</h2>
 
-    <h2>Assinatura</h2>
+      <label for="indicadorNome">
+        Seu nome
+      </label>
 
-    <p>
-      A assinatura mensal custa R$ 24,99.
-    </p>
+      <input
+        type="text"
+        id="indicadorNome"
+        placeholder="Seu nome"
+      >
 
-    <button onclick="alert('Em breve vamos configurar o pagamento.')">
-      CONTINUAR
-    </button>
+      <label for="indicadorTelefone">
+        Seu WhatsApp
+      </label>
 
-    <button class="close" onclick="fecharModais()">
-      CANCELAR
-    </button>
+      <input
+        type="tel"
+        id="indicadorTelefone"
+        placeholder="Seu WhatsApp"
+      >
+
+      <label for="indicadoNome">
+        Nome do amigo
+      </label>
+
+      <input
+        type="text"
+        id="indicadoNome"
+        placeholder="Nome do amigo"
+      >
+
+      <label for="indicadoTelefone">
+        WhatsApp do amigo
+      </label>
+
+      <input
+        type="tel"
+        id="indicadoTelefone"
+        placeholder="WhatsApp do amigo"
+      >
+
+      <button
+        class="form-button"
+        onclick="cadastrarIndicacao()"
+      >
+        ENVIAR INDICAÇÃO
+      </button>
+
+      <div
+        id="resultadoIndicacao"
+        class="resultado"
+      ></div>
+
+    </div>
 
   </div>
 
-</div>
+  <footer>
+    © 2026 Pegasus TV
+  </footer>
 
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- MODAL INDICAÇÃO -->
+  <!-- NOSSA CONFIGURAÇÃO -->
+  <script src="supabase.js"></script>
 
-<div class="modal" id="modalIndicacao">
+  <!-- ========================= -->
+  <!-- JAVASCRIPT DO SITE -->
+  <!-- ========================= -->
 
-  <div class="modal-box">
+  <script>
 
-    <h2>Indique e ganhe</h2>
+    /* =========================
+       ABRIR MODAL
+    ========================= */
 
-    <p>
-      Informe seus dados e os dados da pessoa indicada.
-    </p>
+    function abrirModal(id) {
 
-    <input
-      id="indicadorNome"
-      type="text"
-      placeholder="Seu nome"
-    >
+      const modal = document.getElementById(id);
 
-    <input
-      id="indicadorTelefone"
-      type="tel"
-      placeholder="Seu telefone"
-    >
-
-    <input
-      id="indicadoNome"
-      type="text"
-      placeholder="Nome do indicado"
-    >
-
-    <input
-      id="indicadoTelefone"
-      type="tel"
-      placeholder="Telefone do indicado"
-    >
-
-    <button onclick="enviarIndicacao()">
-      ENVIAR INDICAÇÃO
-    </button>
-
-    <button class="close" onclick="fecharModais()">
-      CANCELAR
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- SUPABASE -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="supabase.js"></script>
-
-
-<script>
-
-function fecharModais() {
-  document.getElementById("modalTeste").style.display = "none";
-  document.getElementById("modalAssinatura").style.display = "none";
-  document.getElementById("modalIndicacao").style.display = "none";
-}
-
-
-function abrirTeste() {
-  fecharModais();
-  document.getElementById("modalTeste").style.display = "flex";
-}
-
-
-function abrirAssinatura() {
-  fecharModais();
-  document.getElementById("modalAssinatura").style.display = "flex";
-}
-
-
-function abrirIndicacao() {
-  fecharModais();
-  document.getElementById("modalIndicacao").style.display = "flex";
-}
-
-
-async function cadastrarTeste() {
-
-  const nome =
-    document.getElementById("testeNome").value.trim();
-
-  const telefone =
-    document.getElementById("testeTelefone").value.trim();
-
-  const resultado =
-    document.getElementById("resultado");
-
-  if (!nome || !telefone) {
-    resultado.innerText =
-      "Preencha seu nome e telefone.";
-
-    return;
-  }
-
-  resultado.innerText =
-    "Cadastrando seu teste...";
-
-  try {
-
-    const { data: cliente, error: erroCliente } =
-      await supabaseClient
-        .from("clientes")
-        .insert({
-          nome: nome,
-          telefone: telefone
-        })
-        .select()
-        .single();
-
-    if (erroCliente) {
-      throw erroCliente;
+      if (modal) {
+        modal.style.display = "block";
+      }
     }
 
-    const inicio = new Date();
 
-    const fim = new Date(
-      inicio.getTime() + (4 * 60 * 60 * 1000)
-    );
+    /* =========================
+       FECHAR MODAL
+    ========================= */
 
-    const { error: erroTeste } =
-      await supabaseClient
-        .from("testes")
-        .insert({
-          cliente_id: cliente.id,
-          nome: nome,
-          telefone: telefone,
-          data_inicio: inicio.toISOString(),
-          data_fim: fim.toISOString(),
-          status: "ativo"
-        });
+    function fecharModal(id) {
 
-    if (erroTeste) {
-      throw erroTeste;
+      const modal = document.getElementById(id);
+
+      if (modal) {
+        modal.style.display = "none";
+      }
     }
 
-    resultado.innerText =
-      "Teste iniciado com sucesso! Seu teste é válido por 4 horas.";
 
-  } catch (erro) {
+    /* =========================
+       FECHAR CLICANDO FORA
+    ========================= */
 
-    console.error("ERRO SUPABASE:", erro);
+    window.onclick = function(event) {
 
-    resultado.innerText =
-      "ERRO: " +
-      (erro.message || JSON.stringify(erro));
-  }
+      if (event.target.classList.contains("modal")) {
 
-async function enviarIndicacao() {
+        event.target.style.display = "none";
 
-  const nomeIndicador =
-    document.getElementById("indicadorNome").value.trim();
+      }
+    };
 
-  const telefoneIndicador =
-    document.getElementById("indicadorTelefone").value.trim();
 
-  const nomeIndicado =
-    document.getElementById("indicadoNome").value.trim();
+    /* =========================
+       TESTE GRÁTIS
+    ========================= */
 
-  const telefoneIndicado =
-    document.getElementById("indicadoTelefone").value.trim();
+    async function cadastrarTeste() {
 
-  if (
-    !nomeIndicador ||
-    !telefoneIndicador ||
-    !nomeIndicado ||
-    !telefoneIndicado
-  ) {
+      const nome =
+        document.getElementById("testeNome").value.trim();
 
-    alert("Preencha todos os campos.");
+      const telefone =
+        document.getElementById("testeTelefone").value.trim();
 
-    return;
-  }
+      const resultado =
+        document.getElementById("resultado");
 
-  try {
 
-    const { error } =
-      await supabaseClient
-        .from("indicacoes")
-        .insert({
+      if (!nome || !telefone) {
 
-          nome_indicador: nomeIndicador,
+        resultado.innerText =
+          "Preencha seu nome e telefone.";
 
-          telefone_indicador: telefoneIndicador,
+        return;
+      }
 
-          nome_indicado: nomeIndicado,
 
-          telefone_indicado: telefoneIndicado,
+      resultado.innerText =
+        "Cadastrando seu teste...";
 
-          status: "indicado"
 
-        });
+      try {
 
-    if (error) {
-      throw error;
+        /* =========================
+           CADASTRA CLIENTE
+        ========================= */
+
+        const { data: cliente, error: erroCliente } =
+          await supabaseClient
+            .from("clientes")
+            .insert({
+              nome: nome,
+              telefone: telefone
+            })
+            .select()
+            .single();
+
+
+        if (erroCliente) {
+
+          throw erroCliente;
+
+        }
+
+
+        /* =========================
+           CALCULA 4 HORAS
+        ========================= */
+
+        const inicio = new Date();
+
+        const fim = new Date(
+          inicio.getTime() +
+          (4 * 60 * 60 * 1000)
+        );
+
+
+        /* =========================
+           CADASTRA TESTE
+        ========================= */
+
+        const { error: erroTeste } =
+          await supabaseClient
+            .from("testes")
+            .insert({
+              cliente_id: cliente.id,
+              nome: nome,
+              telefone: telefone,
+              data_inicio: inicio.toISOString(),
+              data_fim: fim.toISOString(),
+              status: "ativo"
+            });
+
+
+        if (erroTeste) {
+
+          throw erroTeste;
+
+        }
+
+
+        resultado.innerText =
+          "Teste iniciado com sucesso! Seu teste é válido por 4 horas.";
+
+
+      } catch (erro) {
+
+        console.error(
+          "ERRO SUPABASE:",
+          erro
+        );
+
+
+        resultado.innerText =
+          "ERRO: " +
+          (
+            erro.message ||
+            JSON.stringify(erro)
+          );
+
+      }
+
     }
 
-    alert(
-      "Indicação enviada com sucesso!"
-    );
 
-    fecharModais();
+    /* =========================
+       SOLICITAR PLANO
+    ========================= */
 
-  } catch (erro) {
+    async function solicitarPlano() {
 
-    console.error(erro);
+      const nome =
+        document.getElementById("planoNome").value.trim();
 
-    alert(
-      "Não foi possível enviar a indicação."
-    );
+      const telefone =
+        document.getElementById("planoTelefone").value.trim();
 
-  }
+      const resultado =
+        document.getElementById("resultadoPlano");
 
-}
 
-</script>
+      if (!nome || !telefone) {
+
+        resultado.innerText =
+          "Preencha seu nome e telefone.";
+
+        return;
+      }
+
+
+      resultado.innerText =
+        "Enviando sua solicitação...";
+
+
+      try {
+
+        const { error } =
+          await supabaseClient
+            .from("clientes")
+            .insert({
+              nome: nome,
+              telefone: telefone
+            });
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        resultado.innerText =
+          "Cadastro realizado! Em breve entraremos em contato para finalizar sua assinatura.";
+
+      } catch (erro) {
+
+        console.error(
+          "ERRO PLANO:",
+          erro
+        );
+
+        resultado.innerText =
+          "ERRO: " +
+          (
+            erro.message ||
+            JSON.stringify(erro)
+          );
+
+      }
+
+    }
+
+
+    /* =========================
+       INDICAÇÃO
+    ========================= */
+
+    async function cadastrarIndicacao() {
+
+      const indicadorNome =
+        document
+          .getElementById("indicadorNome")
+          .value
+          .trim();
+
+      const indicadorTelefone =
+        document
+          .getElementById("indicadorTelefone")
+          .value
+          .trim();
+
+      const indicadoNome =
+        document
+          .getElementById("indicadoNome")
+          .value
+          .trim();
+
+      const indicadoTelefone =
+        document
+          .getElementById("indicadoTelefone")
+          .value
+          .trim();
+
+      const resultado =
+        document.getElementById(
+          "resultadoIndicacao"
+        );
+
+
+      if (
+        !indicadorNome ||
+        !indicadorTelefone ||
+        !indicadoNome ||
+        !indicadoTelefone
+      ) {
+
+        resultado.innerText =
+          "Preencha todos os campos.";
+
+        return;
+      }
+
+
+      resultado.innerText =
+        "Enviando indicação...";
+
+
+      try {
+
+        const { error } =
+          await supabaseClient
+            .from("indicacoes")
+            .insert({
+
+              indicador_nome:
+                indicadorNome,
+
+              indicador_telefone:
+                indicadorTelefone,
+
+              indicado_nome:
+                indicadoNome,
+
+              indicado_telefone:
+                indicadoTelefone,
+
+              status:
+                "pendente"
+
+            });
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        resultado.innerText =
+          "Indicação enviada com sucesso!";
+
+
+      } catch (erro) {
+
+        console.error(
+          "ERRO INDICAÇÃO:",
+          erro
+        );
+
+
+        resultado.innerText =
+          "ERRO: " +
+          (
+            erro.message ||
+            JSON.stringify(erro)
+          );
+
+      }
+
+    }
+
+  </script>
 
 </body>
-</html>
+    </html>
