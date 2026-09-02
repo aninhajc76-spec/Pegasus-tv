@@ -396,14 +396,12 @@ async function cadastrarTeste() {
 
   } catch (erro) {
 
-    console.error(erro);
+    console.error("ERRO SUPABASE:", erro);
 
     resultado.innerText =
-      "Não foi possível iniciar o teste. Tente novamente.";
-
+      "ERRO: " +
+      (erro.message || JSON.stringify(erro));
   }
-}
-
 
 async function enviarIndicacao() {
 
