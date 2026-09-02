@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Administração - Pegasus TV</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 22px 18px;
+      border-bottom: 1px solid #222;
+    }
+
+    header h1 {
+      font-size: 24px;
+    }
+
+    header p {
+      color: #888;
+      margin-top: 6px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(160px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .card h3 {
+      color: #aaa;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .number {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .section {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+
+    .section h2 {
+      margin-bottom: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+
+    th,
+    td {
+      padding: 12px 10px;
+      text-align: left;
+      border-bottom: 1px solid #292929;
+    }
+
+    th {
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    td {
+      font-size: 14px;
+    }
+
+    .status {
+      padding: 5px 8px;
+      border-radius: 6px;
+      background: #222;
+      display: inline-block;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      background: #fff;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    #mensagem {
+      color: #aaa;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>PEGASUS TV</h1>
+  <p>Painel administrativo</p>
+</header>
+
+<main>
+
+  <button onclick="carregarDados()">
+    ATUALIZAR DADOS
+  </button>
+
+  <div id="mensagem"></div>
+
+  <section class="cards">
+
+    <div class="card">
+      <h3>CLIENTES</h3>
+      <div class="number" id="totalClientes">0</div>
+    </div>
+
+    <div class="card">
+      <h3>TESTES</h3>
+      <div class="number" id="totalTestes">0</div>
+    </div>
+
+    <div class="card">
+      <h3>TESTES ATIVOS</h3>
+      <div class="number" id="testesAtivos">0</div>
+    </div>
+
+    <div class="card">
+      <h3>ASSINATURAS</h3>
+      <div class="number" id="totalAssinaturas">0</div>
+    </div>
+
+    <div class="card">
+      <h3>INDICAÇÕES</h3>
+      <div class="number" id="totalIndicacoes">0</div>
+    </div>
+
+    <div class="card">
+      <h3>PAGAMENTOS</h3>
+      <div class="number" id="totalPagamentos">0</div>
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <h2>Clientes</h2>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Telefone</th>
+          <th>Status</th>
+          <th>Cadastro</th>
+        </tr>
+      </thead>
+
+      <tbody id="clientesTabela">
+      </tbody>
+
+    </table>
+
+  </section>
+
+
+  <section class="section">
+
+    <h2>Testes</h2>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Telefone</th>
+          <th>Início</th>
+          <th>Fim</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody id="testesTabela">
+      </tbody>
+
+    </table>
+
+  </section>
+
+
+  <section class="section">
+
+    <h2>Indicações</h2>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Indicador</th>
+          <th>Telefone</th>
+          <th>Indicado</th>
+          <th>Telefone</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody id="indicacoesTabela">
+      </tbody>
+
+    </table>
+
+  </section>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase.js"></script>
+
+
+<script>
+
+function formatarData(data) {
+
+  if (!data) {
+    return "-";
+  }
+
+  return new Date(data).toLocaleString(
+    "pt-BR"
+  );
+}
+
+
+async function carregarDados() {
+
+  const mensagem =
+    document.getElementById("mensagem");
+
+  mensagem.innerText =
+    "Carregando dados...";
+
+
+  try {
+
+    const clientes =
+      await supabaseClient
+        .from("clientes")
+        .select("*")
+        .order(
+          "created_at",
+          { ascending: false }
+        );
+
+
+    const testes =
+      await supabaseClient
+        .from("testes")
+        .select("*")
+        .order(
+          "created_at",
+          { ascending: false }
+        );
+
+
+    const assinaturas =
+      await supabaseClient
+        .from("assinaturas")
+        .select("*");
+
+
+    const indicacoes =
+      await supabaseClient
+        .from("indicacoes")
+        .select("*")
+        .order(
+          "created_at",
+          { ascending: false }
+        );
+
+
+    const pagamentos =
+      await supabaseClient
+        .from("pagamentos")
+        .select("*");
+
+
+    if (clientes.error) {
+      throw clientes.error;
+    }
+
+    if (testes.error) {
+      throw testes.error;
+    }
+
+    if (assinaturas.error) {
+      throw assinaturas.error;
+    }
+
+    if (indicacoes.error) {
+      throw indicacoes.error;
+    }
+
+    if (pagamentos.error) {
+      throw pagamentos.error;
+    }
+
+
+    document.getElementById(
+      "totalClientes"
+    ).innerText =
+      clientes.data.length;
+
+
+    document.getElementById(
+      "totalTestes"
+    ).innerText =
+      testes.data.length;
+
+
+    document.getElementById(
+      "testesAtivos"
+    ).innerText =
+      testes.data.filter(
+        teste => teste.status === "ativo"
+      ).length;
+
+
+    document.getElementById(
+      "totalAssinaturas"
+    ).innerText =
+      assinaturas.data.length;
+
+
+    document.getElementById(
+      "totalIndicacoes"
+    ).innerText =
+      indicacoes.data.length;
+
+
+    document.getElementById(
+      "totalPagamentos"
+    ).innerText =
+      pagamentos.data.length;
+
+
+    const clientesTabela =
+      document.getElementById(
+        "clientesTabela"
+      );
+
+    clientesTabela.innerHTML = "";
+
+
+    clientes.data.forEach(cliente => {
+
+      clientesTabela.innerHTML += `
+        <tr>
+          <td>${cliente.nome}</td>
+          <td>${cliente.telefone}</td>
+          <td>
+            <span class="status">
+              ${cliente.ativo ? "Ativo" : "Inativo"}
+            </span>
+          </td>
+          <td>
+            ${formatarData(cliente.created_at)}
+          </td>
+        </tr>
+      `;
+
+    });
+
+
+    const testesTabela =
+      document.getElementById(
+        "testesTabela"
+      );
+
+    testesTabela.innerHTML = "";
+
+
+    testes.data.forEach(teste => {
+
+      testesTabela.innerHTML += `
+        <tr>
+          <td>${teste.nome}</td>
+          <td>${teste.telefone}</td>
+          <td>
+            ${formatarData(teste.data_inicio)}
+          </td>
+          <td>
+            ${formatarData(teste.data_fim)}
+          </td>
+          <td>
+            <span class="status">
+              ${teste.status}
+            </span>
+          </td>
+        </tr>
+      `;
+
+    });
+
+
+    const indicacoesTabela =
+      document.getElementById(
+        "indicacoesTabela"
+      );
+
+    indicacoesTabela.innerHTML = "";
+
+
+    indicacoes.data.forEach(indicacao => {
+
+      indicacoesTabela.innerHTML += `
+        <tr>
+          <td>
+            ${indicacao.nome_indicador}
+          </td>
+
+          <td>
+            ${indicacao.telefone_indicador || "-"}
+          </td>
+
+          <td>
+            ${indicacao.nome_indicado}
+          </td>
+
+          <td>
+            ${indicacao.telefone_indicado || "-"}
+          </td>
+
+          <td>
+            <span class="status">
+              ${indicacao.status}
+            </span>
+          </td>
+        </tr>
+      `;
+
+    });
+
+
+    mensagem.innerText =
+      "Dados atualizados com sucesso.";
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    mensagem.innerText =
+      "Erro ao carregar os dados.";
+
+  }
+
+}
+
+
+carregarDados();
+
+</script>
+
+</body>
+</html>
